@@ -1,0 +1,66 @@
+\documentclass{standalone}
+
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\usepackage{tikz,pgfplots}
+\usetikzlibrary{calc}
+\pgfplotsset{compat=1.16}
+
+\begin{document}
+
+\begin{tikzpicture}[domain=0:1, scale=1]
+\begin{axis}[ymin=0.10, ymax=1.1, xmin=0, xmax=1,
+  ytick={.6,.7,...,1.0}, ytick align=outside, ytick pos=left,
+  xtick={0,.2,...,1}, xtick align=outside, xtick pos=left,
+  xlabel=Stated probability $p$,
+  ylabel={$\hat\beta_T$},
+  axis line style={draw opacity=0.5},
+  x tick label style={
+                /pgf/number format/fixed,
+                /pgf/number format/fixed zerofill,
+                /pgf/number format/precision=1},
+  y tick label style={
+                /pgf/number format/fixed,
+                /pgf/number format/fixed zerofill,
+                /pgf/number format/precision=1},
+  grid=major, clip=false]
+\addplot+[
+  only marks,
+  mark options={black, scale=1},
+  visualization depends on=\thisrow{alignment} \as \alignment,
+  point meta=explicit symbolic,
+  nodes near coords,
+  every node near coord/.style={anchor=\alignment,fill=white, inner sep=0.5,outer sep=2.5},
+  error bars/.cd, 
+    y fixed,
+    y dir=both, 
+    y explicit,
+    error bar style={width=4pt, line width=4pt, white!60!red}
+] table [x=x, y=y,y error=error, col sep=comma, row sep=crcr, meta index=3] {
+      x,      y,  error, label, alignment\\
+    0.1, 0.9283289, 0.06448596,  .93, 0\\
+    0.2, 0.8977586, 0.10475828,  .90, 24\\
+    0.5, 0.8873183, 0.13056226,  .89, 14\\
+    1.0, 0.6881929, 0.14963032,  .69, 16\\
+};
+\addplot+[no marks,blue,thick,dashed] {1};
+\node[above, align=left, scale=0.66, xshift=0pt, yshift=1pt] at ($(axis cs:0.1,0.9868)$) {risky price,\\risky day};
+\node[above right, align=left, scale=0.66, xshift=2pt, yshift=-15pt] at ($(axis cs:0.2,0.9535)$) {risky price,\\certain day};
+\node[right, align=left, scale=0.66, xshift=2pt, yshift=1pt] at ($(axis cs:0.5,0.9426)$) {certain price,\\risky day};
+\node[above left, align=right, scale=0.66, xshift=-2pt, yshift=4pt] at ($(axis cs:1.0,0.7761)$) {certain price,\\certain day};
+\draw [decorate,decoration={brace,mirror,raise=4ex},scale=0.2,black]
+  (0.5,2.6) -- (1,2.6) node[midway,scale=0.66,yshift=-8.2ex]{n.s.};
+\draw [decorate,decoration={brace,mirror,raise=4ex},scale=0.2,black]
+  (1,2.4) -- (2.5,2.4) node[midway,scale=0.66,yshift=-8.2ex]{n.s.};
+\draw [decorate,decoration={brace,mirror,raise=4ex},scale=0.2,black]
+  (0.5,2.1) -- (2.5,2.1) node[midway,scale=0.66,yshift=-8.2ex]{n.s.};
+\draw [decorate,decoration={brace,mirror,raise=4ex},scale=0.2,black]
+  (2.5,1.9) -- (5,1.9) node[midway,scale=0.66,yshift=-8.8ex]{n.s.};
+\draw [decorate,decoration={brace,mirror,raise=4ex},scale=0.2,red,thick]
+  (1,1.5) -- (5,1.5) node[midway,scale=0.66,yshift=-8.8ex]{$p=0.0527^{\;*}$};
+\draw [decorate,decoration={brace,mirror,raise=4ex},scale=0.2,red,thick]
+  (0.5,1.1) -- (5,1.1) node[midway,scale=0.66,yshift=-8.8ex]{$p=0.0177^{\;**}$};
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

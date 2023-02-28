@@ -1,0 +1,80 @@
+\documentclass[letterpaper,DIV=14]{scrartcl}
+
+\usepackage{scrlayer-scrpage}
+\usepackage{newtxtext}
+
+\usepackage{graphicx}
+\usepackage{animate}
+
+\begin{filecontents}{decision_practice_timeline.txt}
+*::0
+::1
+::2
+::1
+::2
+::1
+::2
+::1
+*::3
+::1
+::2
+::1
+::2
+::1
+::2
+*::4
+*::5
+\end{filecontents}
+
+\begin{filecontents}{implement_practice_timeline.txt}
+*::0
+::1
+::2
+::3
+::4
+::5
+::1
+::2
+::3
+::4
+::5
+::1
+*::6
+*::7
+\end{filecontents}
+
+\pagestyle{scrheadings}
+\addtokomafont{disposition}{\linespread{1}}
+
+\lohead{Temptation: Immediacy and Certainty}
+\cohead{27 September 2020}
+\rohead{Lucas Reddinger}
+
+\begin{document}
+
+\begin{figure}[p]
+\centering\fbox{\animategraphics[scale=0.45,trim=0cm 14cm 12cm 0cm,step]{15}{animate_frames/task_practice}{0}{2}}
+\caption{This interface shows the subject examples of the task.\\\emph{Click the figure to flip through the selection screens.}}
+\end{figure}
+
+\begin{figure}[p]
+\centering\fbox{\animategraphics[scale=0.45,trim=0cm 11cm 6cm 0cm,step]{10}{animate_frames/allocate_practice}{0}{19}}
+\caption{This interface allows the subject to allocate their workload between days.\\\emph{Click the figure to flip through the selection screens.}}
+\end{figure}
+
+\begin{figure}[p]
+\centering\fbox{\animategraphics[scale=0.45,trim=0cm 4.5cm 4cm 0cm,timeline=decision_practice_timeline.txt]{5}{animate_frames/decision_practice}{}{}}
+\caption{This interface gives the subject intuition regarding the selection procedure between days.\\ \emph{Click the figure to play the animation; click a second time when prompted.}}
+\end{figure}
+
+\begin{figure}[p]
+\centering\fbox{\animategraphics[scale=0.45,trim=0cm 20cm 8cm 0cm,timeline=implement_practice_timeline.txt]{6}{animate_frames/implement_practice}{}{}}
+\caption{This interface gives the subject intuition regarding the selection procedure between prices.\\ \emph{Click the figure to play the animation.}}
+\end{figure}
+
+\begin{figure}[p]
+\centering\fbox{\animategraphics[scale=0.45,trim=0cm 12.5cm 12cm 0cm,step]{15}{animate_frames/task_implemented_practice}{0}{2}}
+\caption{This interface shows the subject examples of the implemented tasks.\\\emph{Click the figure to flip through the screens.}}
+\end{figure}
+
+\end{document}
